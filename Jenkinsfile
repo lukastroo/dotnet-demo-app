@@ -5,9 +5,10 @@ pipeline {
     agent any
 
     triggers {
-        // GitHub kan infra010 (172.16.0.10, host-only netwerk) niet bereiken voor een webhook,
-        // dus Jenkins kijkt zelf om de 2 minuten of er nieuwe commits op main zijn
-        pollSCM('H/2 * * * *')
+        // De repo staat nu in Gitea op infra010 zelf. Bij een push roept Gitea via een webhook
+        // /git/notifyCommit aan, en dan pas kijkt Jenkins of er iets nieuws is.
+        // Lege spec = polling staat aan (nodig voor notifyCommit), maar zonder schema.
+        pollSCM('')
     }
 
     environment {
